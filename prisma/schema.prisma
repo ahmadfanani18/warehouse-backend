@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  WH_MANAGER
+  STAFF
+}
+
+model User {
+  id          String    @id @default(uuid())
+  email       String    @unique
+  password    String // bcrypt hashed
+  name        String
+  role        Role      @default(STAFF)
+  avatarUrl   String?
+  phone       String?
+  isActive    Boolean   @default(true)
+  lastLoginAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  warehouses    UserWarehouse[]
+  refreshTokens RefreshToken[]
+  auditLogs     AuditLog[]
+  notifications Notification[]
+}
+
+model Warehouse {
+  id        String   @id @default(uuid())
+  code      String   @unique // JKT1, SBY1
+  name      String
+  address   String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users UserWarehouse[]
+}
+
+model UserWarehouse {
+  userId      String
+  warehouseId String
+  assignedAt  DateTime @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  warehouse Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+
+  @@id([userId, warehouseId])
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique // hashed refresh token
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Unit {
+  id           String   @id @default(uuid())
+  name         String   @unique // "Kilogram"
+  abbreviation String   @unique // "kg"
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String
+  type      String // TRANSFER_PENDING, LOW_STOCK, SYSTEM
+  isRead    Boolean  @default(false)
+  metadata  Json? // { transferId: "...", warehouseId: "..." }
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String? // Nullable — log tetap ada meski user di-soft-delete
+  action    String // LOGIN, LOGOUT, CREATE_USER, dll
+  detail    String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
