@@ -22,11 +22,14 @@ export class AuthController {
     try {
       const { email, password } = req.body;
       
-      if (!email || !password) {
+      const cleanEmail = email?.trim();
+      const cleanPassword = password?.trim();
+
+      if (!cleanEmail || !cleanPassword) {
         return res.status(400).json({ error: 'Email and password are required' });
       }
 
-      const result = await this.loginUseCase.execute(email, password);
+      const result = await this.loginUseCase.execute(cleanEmail, cleanPassword);
 
       if (!result.isSuccess) {
         return res.status(result.error?.statusCode || 401).json({ error: result.error?.message });

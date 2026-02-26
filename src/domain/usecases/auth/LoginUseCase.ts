@@ -18,7 +18,8 @@ export class LoginUseCase {
   ) {}
 
   async execute(email: string, password: string): Promise<Result<{ user: User; tokens: AuthTokens }>> {
-    const user = await this.userRepo.findByEmail(email);
+    const cleanEmail = email.trim();
+    const user = await this.userRepo.findByEmail(cleanEmail);
     if (!user || !user.isActive) return Result.fail(new InvalidCredentialsError());
 
     const valid = await this.hashService.compare(password, user.password);
