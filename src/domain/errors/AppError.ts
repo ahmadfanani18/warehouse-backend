@@ -4,8 +4,8 @@ export abstract class AppError extends Error {
 
 export class InvalidCredentialsError extends AppError {
   readonly statusCode = 401;
-  constructor() {
-    super('Email atau password salah');
+  constructor(msg = 'Email atau password salah') {
+    super(msg);
   }
 }
 
@@ -40,6 +40,13 @@ export class ConflictError extends AppError {
 export class ValidationError extends AppError {
   readonly statusCode = 422;
   constructor(msg: string) {
+    super(msg);
+  }
+}
+
+export class InternalServerError extends AppError {
+  readonly statusCode = 500;
+  constructor(msg = 'Internal Server Error') {
     super(msg);
   }
 }

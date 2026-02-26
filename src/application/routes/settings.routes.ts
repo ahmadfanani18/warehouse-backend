@@ -1,40 +1,74 @@
 import { Router } from 'express';
+import { container } from 'tsyringe';
+import { SettingsController } from '../controllers/SettingsController';
+import { authMiddleware } from '../middlewares/authMiddleware';
+import { roleMiddleware } from '../middlewares/roleMiddleware';
+import { Role } from '../../domain/entities/User';
 
 const router = Router();
+const settingsController = container.resolve(SettingsController);
+
+// Require SUPER_ADMIN for all settings changes
+const requireAdmin = roleMiddleware([Role.SUPER_ADMIN]);
 
 /**
  * @swagger
  * tags:
  *   name: Settings
- *   description: System Settings (Categories, Units, General) API
+ *   description: System Settings API (Categories, Units)
  */
 
-// --- Categories --- //
+// --- CATEGORIES ---
 
 /**
  * @swagger
  * /api/settings/categories:
  *   get:
- *     summary: Ambil daftar kategori barang
+ *     summary: Get all categories
  *     tags: [Settings]
  *     security:
  *       - cookieAuth: []
  *     responses:
  *       200:
- *         description: List categories
- */
-router.get('/categories', (req, res) => {
-  res.status(200).json({ message: 'List Categories Route (wip)' });
-});
-
-/**
- * @swagger
- * /api/settings/categories:
+ *         description: List of categories
  *   post:
- *     summary: Buat kategori barang baru
+ *     summary: Create a new category
  *     tags: [Settings]
  *     security:
  *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [name]
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Category created successfully
+ */
+router.get('/categories', authMiddleware, requireAdmin, settingsController.getCategories);
+router.post('/categories', authMiddleware, requireAdmin, settingsController.createCategory);
+
+/**
+ * @swagger
+ * /api/settings/categories/{id}:
+ *   put:
+ *     summary: Update a category
+ *     tags: [Settings]
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
@@ -47,40 +81,10 @@ router.get('/categories', (req, res) => {
  *               description:
  *                 type: string
  *     responses:
- *       201:
- *         description: Kategori dibuat
- */
-router.post('/categories', (req, res) => {
-  res.status(201).json({ message: 'Create Category Route (wip)' });
-});
-
-/**
- * @swagger
- * /api/settings/categories/{id}:
- *   put:
- *     summary: Update kategori barang
- *     tags: [Settings]
- *     security:
- *       - cookieAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
  *       200:
- *         description: Kategori diupdate
- */
-router.put('/categories/:id', (req, res) => {
-  res.status(200).json({ message: 'Update Category Route (wip)' });
-});
-
-/**
- * @swagger
- * /api/settings/categories/{id}:
+ *         description: Category updated successfully
  *   delete:
- *     summary: Hapus kategori barang
+ *     summary: Delete a category
  *     tags: [Settings]
  *     security:
  *       - cookieAuth: []
@@ -92,35 +96,26 @@ router.put('/categories/:id', (req, res) => {
  *           type: string
  *     responses:
  *       200:
- *         description: Kategori dihapus
+ *         description: Category deleted successfully
  */
-router.delete('/categories/:id', (req, res) => {
-  res.status(200).json({ message: 'Delete Category Route (wip)' });
-});
+router.put('/categories/:id', authMiddleware, requireAdmin, settingsController.updateCategory);
+router.delete('/categories/:id', authMiddleware, requireAdmin, settingsController.deleteCategory);
 
-// --- Units --- //
+// --- UNITS ---
 
 /**
  * @swagger
  * /api/settings/units:
  *   get:
- *     summary: Ambil daftar satuan (unit) barang
+ *     summary: Get all units
  *     tags: [Settings]
  *     security:
  *       - cookieAuth: []
  *     responses:
  *       200:
- *         description: List units
- */
-router.get('/units', (req, res) => {
-  res.status(200).json({ message: 'List Units Route (wip)' });
-});
-
-/**
- * @swagger
- * /api/settings/units:
+ *         description: List of units
  *   post:
- *     summary: Buat satuan barang baru
+ *     summary: Create a new unit
  *     tags: [Settings]
  *     security:
  *       - cookieAuth: []
@@ -130,24 +125,24 @@ router.get('/units', (req, res) => {
  *         application/json:
  *           schema:
  *             type: object
+ *             required: [name, abbreviation]
  *             properties:
  *               name:
  *                 type: string
- *               symbol:
+ *               abbreviation:
  *                 type: string
  *     responses:
  *       201:
- *         description: Satuan dibuat
+ *         description: Unit created successfully
  */
-router.post('/units', (req, res) => {
-  res.status(201).json({ message: 'Create Unit Route (wip)' });
-});
+router.get('/units', authMiddleware, requireAdmin, settingsController.getUnits);
+router.post('/units', authMiddleware, requireAdmin, settingsController.createUnit);
 
 /**
  * @swagger
  * /api/settings/units/{id}:
  *   put:
- *     summary: Update satuan barang
+ *     summary: Update a unit
  *     tags: [Settings]
  *     security:
  *       - cookieAuth: []
@@ -157,80 +152,36 @@ router.post('/units', (req, res) => {
  *         required: true
  *         schema:
  *           type: string
- *     responses:
- *       200:
- *         description: Satuan diupdate
- */
-router.put('/units/:id', (req, res) => {
-  res.status(200).json({ message: 'Update Unit Route (wip)' });
-});
-
-/**
- * @swagger
- * /api/settings/units/{id}:
- *   delete:
- *     summary: Hapus satuan barang
- *     tags: [Settings]
- *     security:
- *       - cookieAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Satuan dihapus
- */
-router.delete('/units/:id', (req, res) => {
-  res.status(200).json({ message: 'Delete Unit Route (wip)' });
-});
-
-// --- General Settings --- //
-
-/**
- * @swagger
- * /api/settings/general:
- *   get:
- *     summary: Ambil pengaturan umum sistem
- *     tags: [Settings]
- *     security:
- *       - cookieAuth: []
- *     responses:
- *       200:
- *         description: Application settings returned
- */
-router.get('/general', (req, res) => {
-  res.status(200).json({ message: 'Get General Settings Route (wip)' });
-});
-
-/**
- * @swagger
- * /api/settings/general:
- *   put:
- *     summary: Update pengaturan umum sistem (Super Admin)
- *     tags: [Settings]
- *     security:
- *       - cookieAuth: []
  *     requestBody:
+ *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               companyName:
+ *               name:
  *                 type: string
- *               currency:
- *                 type: string
- *               timezone:
+ *               abbreviation:
  *                 type: string
  *     responses:
  *       200:
- *         description: Settings updated
+ *         description: Unit updated successfully
+ *   delete:
+ *     summary: Delete a unit
+ *     tags: [Settings]
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Unit deleted successfully
  */
-router.put('/general', (req, res) => {
-  res.status(200).json({ message: 'Update General Settings Route (wip)' });
-});
+router.put('/units/:id', authMiddleware, requireAdmin, settingsController.updateUnit);
+router.delete('/units/:id', authMiddleware, requireAdmin, settingsController.deleteUnit);
 
 export default router;

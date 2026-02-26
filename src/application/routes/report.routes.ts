@@ -1,112 +1,64 @@
 import { Router } from 'express';
+import { container } from 'tsyringe';
+import { ReportController } from '../controllers/ReportController';
+import { authMiddleware, authorizeRoles } from '../middlewares/authMiddleware';
+import { Role } from '@prisma/client';
 
 const router = Router();
+const reportController = container.resolve(ReportController);
+
+router.use(authMiddleware);
 
 /**
  * @swagger
  * tags:
- *   name: Reports
- *   description: Reporting & Analytics API
+ *   name: Report
+ *   description: Warehouse Reports
  */
 
 /**
  * @swagger
  * /api/reports/stock:
  *   get:
- *     summary: Laporan pergerakan stok
- *     tags: [Reports]
+ *     summary: Get overall stock report
+ *     tags: [Report]
  *     security:
  *       - cookieAuth: []
- *     parameters:
- *       - in: query
- *         name: warehouseId
- *       - in: query
- *         name: startDate
- *       - in: query
- *         name: endDate
- *       - in: query
- *         name: category
  *     responses:
  *       200:
- *         description: Laporan stok success
+ *         description: Stock report details
  */
-router.get('/stock', (req, res) => {
-  res.status(200).json({ message: 'Stock Report Route (wip)' });
-});
+// Stock Report => SUPER_ADMIN & WH_MANAGER
+router.get('/stock', authorizeRoles(Role.SUPER_ADMIN, Role.WH_MANAGER), reportController.getStockReport);
 
 /**
  * @swagger
  * /api/reports/financial:
  *   get:
- *     summary: Laporan keuangan (valuasi stok, HPP)
- *     tags: [Reports]
+ *     summary: Get financial report based on inventory value
+ *     tags: [Report]
  *     security:
  *       - cookieAuth: []
- *     parameters:
- *       - in: query
- *         name: warehouseId
- *       - in: query
- *         name: startDate
- *       - in: query
- *         name: endDate
  *     responses:
  *       200:
- *         description: Laporan keuangan success
+ *         description: Financial report details
  */
-router.get('/financial', (req, res) => {
-  res.status(200).json({ message: 'Financial Report Route (wip)' });
-});
+// Financial Report => SUPER_ADMIN
+router.get('/financial', authorizeRoles(Role.SUPER_ADMIN), reportController.getFinancialReport);
 
 /**
  * @swagger
  * /api/reports/expenditure:
  *   get:
- *     summary: Laporan pengeluaran / losses
- *     tags: [Reports]
+ *     summary: Get expenditure report
+ *     tags: [Report]
  *     security:
  *       - cookieAuth: []
- *     parameters:
- *       - in: query
- *         name: warehouseId
- *       - in: query
- *         name: startDate
- *       - in: query
- *         name: endDate
  *     responses:
  *       200:
- *         description: Laporan pengeluaran success
+ *         description: Expenditure report details
  */
-router.get('/expenditure', (req, res) => {
-  res.status(200).json({ message: 'Expenditure Report Route (wip)' });
-});
-
-/**
- * @swagger
- * /api/reports/{type}/export:
- *   get:
- *     summary: Export laporan ke .xlsx atau .csv
- *     tags: [Reports]
- *     security:
- *       - cookieAuth: []
- *     parameters:
- *       - in: path
- *         name: type
- *         required: true
- *         schema:
- *           type: string
- *           enum: [stock, financial, expenditure]
- *       - in: query
- *         name: format
- *         schema:
- *           type: string
- *           enum: [xlsx, csv]
- *           default: xlsx
- *     responses:
- *       200:
- *         description: File format octet-stream
- */
-router.get('/:type/export', (req, res) => {
-  res.status(200).json({ message: 'Export Report Route (wip)' });
-});
+// Expenditure Report => SUPER_ADMIN
+router.get('/expenditure', authorizeRoles(Role.SUPER_ADMIN), reportController.getExpenditureReport);
 
 export default router;

@@ -21,6 +21,8 @@ export interface CreateUserDTO {
 export interface UpdateUserDTO {
   name?: string;
   phone?: string;
+  password?: string;
+  avatarUrl?: string;
   role?: Role;
   isActive?: boolean;
   warehouseIds?: string[];

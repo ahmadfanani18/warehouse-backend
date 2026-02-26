@@ -1,7 +1,10 @@
 import { Router } from 'express';
-// import { authController } from '../controllers/AuthController';
+import { container } from 'tsyringe';
+import { AuthController } from '../controllers/AuthController';
+import { authMiddleware } from '../middlewares/authMiddleware';
 
 const router = Router();
+const authController = container.resolve(AuthController);
 
 /**
  * @swagger
@@ -36,9 +39,7 @@ const router = Router();
  *       401:
  *         description: Invalid credentials
  */
-router.post('/login', (req, res) => {
-  res.status(200).json({ message: 'Login Route (wip)' });
-});
+router.post('/login', authController.login);
 
 /**
  * @swagger
@@ -52,9 +53,7 @@ router.post('/login', (req, res) => {
  *       200:
  *         description: Berhasil logout
  */
-router.post('/logout', (req, res) => {
-  res.status(200).json({ message: 'Logout Route (wip)' });
-});
+router.post('/logout', authController.logout);
 
 /**
  * @swagger
@@ -84,9 +83,7 @@ router.post('/refresh', (req, res) => {
  *       401:
  *         description: Unauthorized
  */
-router.get('/me', (req, res) => {
-  res.status(200).json({ message: 'Me Route (wip)' });
-});
+router.get('/me', authMiddleware, authController.getMe);
 
 /**
  * @swagger
@@ -116,9 +113,7 @@ router.get('/me', (req, res) => {
  *       400:
  *         description: Password lama salah
  */
-router.put('/change-password', (req, res) => {
-  res.status(200).json({ message: 'Change Password Route (wip)' });
-});
+router.put('/change-password', authMiddleware, authController.changePassword);
 
 /**
  * @swagger
@@ -141,9 +136,7 @@ router.put('/change-password', (req, res) => {
  *       200:
  *         description: Instruksi pemulihan telah dikirim
  */
-router.post('/forgot-password', (req, res) => {
-  res.status(200).json({ message: 'Forgot Password Route (wip)' });
-});
+router.post('/forgot-password', authController.forgotPassword);
 
 /**
  * @swagger
@@ -171,8 +164,6 @@ router.post('/forgot-password', (req, res) => {
  *       400:
  *         description: Token invalid / expired
  */
-router.post('/reset-password', (req, res) => {
-  res.status(200).json({ message: 'Reset Password Route (wip)' });
-});
+router.post('/reset-password', authController.resetPassword);
 
 export default router;

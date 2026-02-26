@@ -1,6 +1,13 @@
 import { Router } from 'express';
+import { container } from 'tsyringe';
+import { InventoryController } from '../controllers/InventoryController';
+import { authMiddleware, authorizeRoles } from '../middlewares/authMiddleware';
+import { Role } from '@prisma/client';
 
 const router = Router();
+const inventoryController = container.resolve(InventoryController);
+
+router.use(authMiddleware);
 
 /**
  * @swagger
@@ -39,9 +46,7 @@ const router = Router();
  *       200:
  *         description: Paginated inventory list
  */
-router.get('/', (req, res) => {
-  res.status(200).json({ message: 'List Inventory Route (wip)' });
-});
+router.get('/', inventoryController.getInventories);
 
 /**
  * @swagger
@@ -61,9 +66,7 @@ router.get('/', (req, res) => {
  *       200:
  *         description: Inventory details
  */
-router.get('/:sku', (req, res) => {
-  res.status(200).json({ message: 'Inventory Detail Route (wip)' });
-});
+router.get('/:sku', inventoryController.getProductDetail);
 
 /**
  * @swagger
@@ -102,9 +105,7 @@ router.get('/:sku', (req, res) => {
  *       201:
  *         description: Item inventory berhasil dibuat
  */
-router.post('/', (req, res) => {
-  res.status(201).json({ message: 'Create Inventory Route (wip)' });
-});
+router.post('/', authorizeRoles(Role.SUPER_ADMIN, Role.WH_MANAGER), inventoryController.createProduct);
 
 /**
  * @swagger
@@ -124,9 +125,7 @@ router.post('/', (req, res) => {
  *       200:
  *         description: Item inventory berhasil diubah
  */
-router.put('/:sku', (req, res) => {
-  res.status(200).json({ message: 'Update Inventory Route (wip)' });
-});
+router.put('/:sku', authorizeRoles(Role.SUPER_ADMIN, Role.WH_MANAGER), inventoryController.updateProduct);
 
 /**
  * @swagger
@@ -146,8 +145,6 @@ router.put('/:sku', (req, res) => {
  *       200:
  *         description: Item inventory berhasil dihapus
  */
-router.delete('/:sku', (req, res) => {
-  res.status(200).json({ message: 'Delete Inventory Route (wip)' });
-});
+router.delete('/:sku', authorizeRoles(Role.SUPER_ADMIN), inventoryController.deleteProduct);
 
 export default router;

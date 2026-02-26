@@ -1,6 +1,13 @@
 import { Router } from 'express';
+import { container } from 'tsyringe';
+import { TransactionController } from '../controllers/TransactionController';
+import { authMiddleware, authorizeRoles } from '../middlewares/authMiddleware';
+import { Role } from '@prisma/client';
 
 const router = Router();
+const transactionController = container.resolve(TransactionController);
+
+router.use(authMiddleware);
 
 /**
  * @swagger
@@ -25,7 +32,6 @@ const router = Router();
  *             type: object
  *             required:
  *               - warehouseId
- *               - date
  *               - items
  *             properties:
  *               warehouseId:
@@ -44,19 +50,18 @@ const router = Router();
  *                 items:
  *                   type: object
  *                   properties:
+ *                     productId:
+ *                       type: string
  *                     sku:
  *                       type: string
  *                     quantity:
  *                       type: integer
- *                     location:
- *                       type: string
  *     responses:
  *       201:
  *         description: Transaksi berhasil disimpan
  */
-router.post('/stock-in', (req, res) => {
-  res.status(201).json({ message: 'Stock In Route (wip)' });
-});
+// Stock In => Semua role
+router.post('/stock-in', transactionController.createStockIn);
 
 /**
  * @swagger
@@ -74,7 +79,6 @@ router.post('/stock-in', (req, res) => {
  *             type: object
  *             required:
  *               - warehouseId
- *               - date
  *               - items
  *             properties:
  *               warehouseId:
@@ -84,7 +88,7 @@ router.post('/stock-in', (req, res) => {
  *                 format: date-time
  *               referenceNo:
  *                 type: string
- *               recipient:
+ *               destination:
  *                 type: string
  *               notes:
  *                 type: string
@@ -93,6 +97,8 @@ router.post('/stock-in', (req, res) => {
  *                 items:
  *                   type: object
  *                   properties:
+ *                     productId:
+ *                       type: string
  *                     sku:
  *                       type: string
  *                     quantity:
@@ -101,9 +107,8 @@ router.post('/stock-in', (req, res) => {
  *       201:
  *         description: Transaksi berhasil disimpan
  */
-router.post('/stock-out', (req, res) => {
-  res.status(201).json({ message: 'Stock Out Route (wip)' });
-});
+// Stock Out => Semua role
+router.post('/stock-out', transactionController.createStockOut);
 
 /**
  * @swagger
@@ -138,6 +143,8 @@ router.post('/stock-out', (req, res) => {
  *                 items:
  *                   type: object
  *                   properties:
+ *                     productId:
+ *                       type: string
  *                     sku:
  *                       type: string
  *                     quantity:
@@ -146,9 +153,8 @@ router.post('/stock-out', (req, res) => {
  *       201:
  *         description: Permintaan transfer berhasil dibuat
  */
-router.post('/transfer', (req, res) => {
-  res.status(201).json({ message: 'Stock Transfer Route (wip)' });
-});
+// Transfer => SUPER_ADMIN, WH_MANAGER
+router.post('/transfer', authorizeRoles(Role.SUPER_ADMIN, Role.WH_MANAGER), transactionController.createTransfer);
 
 /**
  * @swagger
@@ -158,13 +164,18 @@ router.post('/transfer', (req, res) => {
  *     tags: [Transaction]
  *     security:
  *       - cookieAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: warehouseId
+ *         required: false
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: List pending transfers
  */
-router.get('/transfer/pending', (req, res) => {
-  res.status(200).json({ message: 'Pending Transfers Route (wip)' });
-});
+// Pending Transfers => WH_MANAGER (untuk gudang tujuan juga SA)
+router.get('/transfer/pending', authorizeRoles(Role.SUPER_ADMIN, Role.WH_MANAGER), transactionController.getPendingTransfers);
 
 /**
  * @swagger
@@ -180,13 +191,20 @@ router.get('/transfer/pending', (req, res) => {
  *         required: true
  *         schema:
  *           type: string
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               notes:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Transfer disetujui
  */
-router.put('/transfer/:id/approve', (req, res) => {
-  res.status(200).json({ message: 'Approve Transfer Route (wip)' });
-});
+// Approve Transfer => WH_MANAGER
+router.put('/transfer/:id/approve', authorizeRoles(Role.SUPER_ADMIN, Role.WH_MANAGER), transactionController.approveTransfer);
 
 /**
  * @swagger
@@ -214,9 +232,8 @@ router.put('/transfer/:id/approve', (req, res) => {
  *       200:
  *         description: Transfer ditolak
  */
-router.put('/transfer/:id/reject', (req, res) => {
-  res.status(200).json({ message: 'Reject Transfer Route (wip)' });
-});
+// Reject Transfer => WH_MANAGER
+router.put('/transfer/:id/reject', authorizeRoles(Role.SUPER_ADMIN, Role.WH_MANAGER), transactionController.rejectTransfer);
 
 /**
  * @swagger
@@ -240,8 +257,7 @@ router.put('/transfer/:id/reject', (req, res) => {
  *       200:
  *         description: Transaction history list
  */
-router.get('/history', (req, res) => {
-  res.status(200).json({ message: 'Transaction History Route (wip)' });
-});
+// History => Semua Role (pembatasan dilakukan di level user ID nanti)
+router.get('/history', transactionController.getHistory);
 
 export default router;

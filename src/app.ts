@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import './infrastructure/container';
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -55,7 +56,7 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   logger.error(err);
   const status = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
-  res.status(status).json({ error: message });
+  res.status(status).json({ error: message, stack: err.stack });
 });
 
 export default app;

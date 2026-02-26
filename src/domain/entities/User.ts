@@ -1,4 +1,5 @@
-export type Role = 'SUPER_ADMIN' | 'WH_MANAGER' | 'STAFF';
+import { Role } from '@prisma/client';
+export { Role };
 
 export interface User {
   id: string;

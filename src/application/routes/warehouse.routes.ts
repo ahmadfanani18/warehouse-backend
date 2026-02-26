@@ -1,6 +1,12 @@
 import { Router } from 'express';
+import { container } from 'tsyringe';
+import { WarehouseController } from '../controllers/WarehouseController';
+import { authMiddleware } from '../middlewares/authMiddleware';
+import { roleMiddleware } from '../middlewares/roleMiddleware';
+import { Role } from '../../domain/entities/User';
 
 const router = Router();
+const warehouseController = container.resolve(WarehouseController);
 
 /**
  * @swagger
@@ -13,23 +19,21 @@ const router = Router();
  * @swagger
  * /api/warehouses:
  *   get:
- *     summary: List semua gudang
+ *     summary: Dapatkan daftar semua gudang
  *     tags: [Warehouse]
  *     security:
  *       - cookieAuth: []
  *     responses:
  *       200:
- *         description: Berhasil mengambil list gudang
+ *         description: Berhasil mendapatkan daftar gudang
  */
-router.get('/', (req, res) => {
-  res.status(200).json({ message: 'List Warehouses Route (wip)' });
-});
+router.get('/', authMiddleware, warehouseController.getWarehouses);
 
 /**
  * @swagger
  * /api/warehouses:
  *   post:
- *     summary: Buat master gudang baru (Super Admin)
+ *     summary: Tambah gudang baru
  *     tags: [Warehouse]
  *     security:
  *       - cookieAuth: []
@@ -39,31 +43,26 @@ router.get('/', (req, res) => {
  *         application/json:
  *           schema:
  *             type: object
- *             required:
- *               - name
- *               - code
  *             properties:
- *               name:
- *                 type: string
  *               code:
+ *                 type: string
+ *               name:
  *                 type: string
  *               address:
  *                 type: string
- *               managerId:
- *                 type: string
+ *               isActive:
+ *                 type: boolean
  *     responses:
  *       201:
- *         description: Gudang berhasil dibuat
+ *         description: Gudang berhasil ditambahkan
  */
-router.post('/', (req, res) => {
-  res.status(201).json({ message: 'Create Warehouse Route (wip)' });
-});
+router.post('/', authMiddleware, roleMiddleware([Role.SUPER_ADMIN]), warehouseController.createWarehouse);
 
 /**
  * @swagger
  * /api/warehouses/{id}:
  *   put:
- *     summary: Update data master gudang
+ *     summary: Update data gudang
  *     tags: [Warehouse]
  *     security:
  *       - cookieAuth: []
@@ -80,13 +79,11 @@ router.post('/', (req, res) => {
  *           schema:
  *             type: object
  *             properties:
- *               name:
- *                 type: string
  *               code:
  *                 type: string
- *               address:
+ *               name:
  *                 type: string
- *               managerId:
+ *               address:
  *                 type: string
  *               isActive:
  *                 type: boolean
@@ -94,15 +91,13 @@ router.post('/', (req, res) => {
  *       200:
  *         description: Gudang berhasil diupdate
  */
-router.put('/:id', (req, res) => {
-  res.status(200).json({ message: 'Update Warehouse Route (wip)' });
-});
+router.put('/:id', authMiddleware, roleMiddleware([Role.SUPER_ADMIN]), warehouseController.updateWarehouse);
 
 /**
  * @swagger
  * /api/warehouses/{id}:
  *   delete:
- *     summary: Soft delete master gudang
+ *     summary: Nonaktifkan gudang
  *     tags: [Warehouse]
  *     security:
  *       - cookieAuth: []
@@ -116,8 +111,6 @@ router.put('/:id', (req, res) => {
  *       200:
  *         description: Gudang berhasil dinonaktifkan
  */
-router.delete('/:id', (req, res) => {
-  res.status(200).json({ message: 'Delete Warehouse Route (wip)' });
-});
+router.delete('/:id', authMiddleware, roleMiddleware([Role.SUPER_ADMIN]), warehouseController.deleteWarehouse);
 
 export default router;

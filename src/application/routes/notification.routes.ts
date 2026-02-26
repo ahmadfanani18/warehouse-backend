@@ -1,45 +1,53 @@
 import { Router } from 'express';
+import { container } from 'tsyringe';
+import { NotificationController } from '../controllers/NotificationController';
+import { authMiddleware } from '../middlewares/authMiddleware';
 
 const router = Router();
+const notificationController = container.resolve(NotificationController);
+
+router.use(authMiddleware);
 
 /**
  * @swagger
  * tags:
  *   name: Notification
- *   description: In-App Notifications API
+ *   description: User Notifications
  */
 
 /**
  * @swagger
  * /api/notifications:
  *   get:
- *     summary: List notifikasi untuk user (Paginated)
+ *     summary: Get user notifications
  *     tags: [Notification]
  *     security:
  *       - cookieAuth: []
- *     parameters:
- *       - in: query
- *         name: page
- *         schema:
- *           type: integer
- *           default: 1
- *       - in: query
- *         name: unreadOnly
- *         schema:
- *           type: boolean
  *     responses:
  *       200:
- *         description: Paginated notifications
+ *         description: List of notifications
  */
-router.get('/', (req, res) => {
-  res.status(200).json({ message: 'List Notifications Route (wip)' });
-});
+router.get('/', notificationController.getNotifications);
+
+/**
+ * @swagger
+ * /api/notifications/read-all:
+ *   put:
+ *     summary: Mark all notifications as read
+ *     tags: [Notification]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: All notifications marked as read
+ */
+router.put('/read-all', notificationController.markAllAsRead);
 
 /**
  * @swagger
  * /api/notifications/{id}/read:
  *   put:
- *     summary: Tandai 1 notifikasi sudah dibaca
+ *     summary: Mark a single notification as read
  *     tags: [Notification]
  *     security:
  *       - cookieAuth: []
@@ -53,24 +61,6 @@ router.get('/', (req, res) => {
  *       200:
  *         description: Notification marked as read
  */
-router.put('/:id/read', (req, res) => {
-  res.status(200).json({ message: 'Mark Notification Read Route (wip)' });
-});
-
-/**
- * @swagger
- * /api/notifications/read-all:
- *   put:
- *     summary: Tandai semua notifikasi sudah dibaca
- *     tags: [Notification]
- *     security:
- *       - cookieAuth: []
- *     responses:
- *       200:
- *         description: All notifications marked as read
- */
-router.put('/read-all', (req, res) => {
-  res.status(200).json({ message: 'Mark All Notifications Read Route (wip)' });
-});
+router.put('/:id/read', notificationController.markAsRead);
 
 export default router;

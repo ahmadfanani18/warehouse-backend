@@ -1,0 +1,623 @@
+[1m[43m DEPRECATED [49m[22m [33m`test.poolOptions` was removed in Vitest 4. All previous `poolOptions` are now top-level options. Please, refer to the migration guide: https://vitest.dev/guide/migration#pool-rework[39m
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend[39m
+
+[90mstdout[2m | tests/user.api.test.ts[2m > [22m[2mUser API E2E
+[22m[39m[User E2E] Starting beforeAll hook
+[User E2E] Executing truncateDB...
+
+[90mstdout[2m | tests/user.api.test.ts[2m > [22m[2mUser API E2E
+[22m[39m[User E2E] TruncateDB finished
+[User E2E] Hashing password...
+
+[90mstdout[2m | tests/user.api.test.ts[2m > [22m[2mUser API E2E
+[22m[39m[User E2E] Creating admin user...
+
+[90mstdout[2m | tests/user.api.test.ts[2m > [22m[2mUser API E2E
+[22m[39m[User E2E] Creating staff user...
+
+[90mstdout[2m | tests/user.api.test.ts[2m > [22m[2mUser API E2E
+[22m[39m[User E2E] Logging in admin...
+
+[90mstdout[2m | tests/user.api.test.ts[2m > [22m[2mUser API E2E
+[22m[39m[User E2E] Logging in staff...
+
+[2026-02-26 13:44:25.578 +0700] [32mINFO[39m: [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64260",
+        "accept-encoding": "gzip, deflate",
+        "content-type": "application/json",
+        "content-length": "58",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64261
+    }
+    [35mres[39m: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "set-cookie": [
+          "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MGRiMjlmYi03YjM1LTRhMmUtOGNhNy01ZmRkZDA4YmM0MmQiLCJlbWFpbCI6InRlc3RhZG1pbkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2MywiZXhwIjoxNzcyMDg5MTYzfQ.INWTGl8QEvO9oD2duvtDJ_D-bC3E5tYGYEZMrrxFVLU; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:25 GMT; HttpOnly; SameSite=Strict",
+          "refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MGRiMjlmYi03YjM1LTRhMmUtOGNhNy01ZmRkZDA4YmM0MmQiLCJlbWFpbCI6InRlc3RhZG1pbkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2MywiZXhwIjoxNzcyNjkzMDYzfQ.BFVHB2QEbJ_w2eeh_HddEfadZ_nXOa30G8e4S3dMH74; Max-Age=604800; Path=/; Expires=Thu, 05 Mar 2026 06:44:25 GMT; HttpOnly; SameSite=Strict"
+        ],
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "552",
+        "etag": "W/\"228-xeQbw3LsXdg2lcd63TUR7oqfYSs\""
+      }
+    }
+    [35mresponseTime[39m: 3626
+[2026-02-26 13:44:26.798 +0700] [32mINFO[39m: [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 2,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64265",
+        "accept-encoding": "gzip, deflate",
+        "content-type": "application/json",
+        "content-length": "58",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64266
+    }
+    [35mres[39m: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "set-cookie": [
+          "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ODkxZmQ5NS0yMmJjLTRkNjQtYTdiMi04Y2E0OGU4YjI5YTQiLCJlbWFpbCI6InRlc3RzdGFmZkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVEFGRiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2NSwiZXhwIjoxNzcyMDg5MTY1fQ.JVK4sJfmZszCF5FRBXA6ac8tJh885oM4twwWKN2T2oQ; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:26 GMT; HttpOnly; SameSite=Strict",
+          "refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ODkxZmQ5NS0yMmJjLTRkNjQtYTdiMi04Y2E0OGU4YjI5YTQiLCJlbWFpbCI6InRlc3RzdGFmZkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVEFGRiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2NSwiZXhwIjoxNzcyNjkzMDY1fQ.ojCeh77-DFAPBjr64KUQvxs19nvxE4AIsLI2zqABWKk; Max-Age=604800; Path=/; Expires=Thu, 05 Mar 2026 06:44:26 GMT; HttpOnly; SameSite=Strict"
+        ],
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "538",
+        "etag": "W/\"21a-nbYAQtEAUpd41VDHth9/sLUiH7Y\""
+      }
+    }
+    [35mresponseTime[39m: 1210
+[90mstdout[2m | tests/user.api.test.ts[2m > [22m[2mUser API E2E
+[22m[39m[User E2E] beforeAll hook finished
+
+[2026-02-26 13:44:29.182 +0700] [32mINFO[39m: [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 3,
+      "method": "GET",
+      "url": "/api/users",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64267",
+        "accept-encoding": "gzip, deflate",
+        "cookie": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MGRiMjlmYi03YjM1LTRhMmUtOGNhNy01ZmRkZDA4YmM0MmQiLCJlbWFpbCI6InRlc3RhZG1pbkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2MywiZXhwIjoxNzcyMDg5MTYzfQ.INWTGl8QEvO9oD2duvtDJ_D-bC3E5tYGYEZMrrxFVLU; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:25 GMT; HttpOnly; SameSite=Strict",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64268
+    }
+    [35mres[39m: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "628",
+        "etag": "W/\"274-s3B80uEaHbBEjFbTcXlSCveXYj8\""
+      }
+    }
+    [35mresponseTime[39m: 2374
+[2026-02-26 13:44:29.190 +0700] [32mINFO[39m: [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 4,
+      "method": "GET",
+      "url": "/api/users",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64271",
+        "accept-encoding": "gzip, deflate",
+        "cookie": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ODkxZmQ5NS0yMmJjLTRkNjQtYTdiMi04Y2E0OGU4YjI5YTQiLCJlbWFpbCI6InRlc3RzdGFmZkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVEFGRiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2NSwiZXhwIjoxNzcyMDg5MTY1fQ.JVK4sJfmZszCF5FRBXA6ac8tJh885oM4twwWKN2T2oQ; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:26 GMT; HttpOnly; SameSite=Strict",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64272
+    }
+    [35mres[39m: {
+      "statusCode": 403,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "52",
+        "etag": "W/\"34-IoN9gzg16Fto/FJ9xqcMuKldQJg\""
+      }
+    }
+    [35mresponseTime[39m: 2
+[2026-02-26 13:44:31.510 +0700] [32mINFO[39m: [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 5,
+      "method": "POST",
+      "url": "/api/users",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64273",
+        "accept-encoding": "gzip, deflate",
+        "cookie": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MGRiMjlmYi03YjM1LTRhMmUtOGNhNy01ZmRkZDA4YmM0MmQiLCJlbWFpbCI6InRlc3RhZG1pbkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2MywiZXhwIjoxNzcyMDg5MTYzfQ.INWTGl8QEvO9oD2duvtDJ_D-bC3E5tYGYEZMrrxFVLU; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:25 GMT; HttpOnly; SameSite=Strict",
+        "content-type": "application/json",
+        "content-length": "109",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64274
+    }
+    [35mres[39m: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "245",
+        "etag": "W/\"f5-ZV4+/+kqLuhX6Rr3APqaX+hbgAk\""
+      }
+    }
+    [35mresponseTime[39m: 2317
+[2026-02-26 13:44:31.769 +0700] [32mINFO[39m: [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 6,
+      "method": "POST",
+      "url": "/api/users",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64276",
+        "accept-encoding": "gzip, deflate",
+        "cookie": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MGRiMjlmYi03YjM1LTRhMmUtOGNhNy01ZmRkZDA4YmM0MmQiLCJlbWFpbCI6InRlc3RhZG1pbkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2MywiZXhwIjoxNzcyMDg5MTYzfQ.INWTGl8QEvO9oD2duvtDJ_D-bC3E5tYGYEZMrrxFVLU; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:25 GMT; HttpOnly; SameSite=Strict",
+        "content-type": "application/json",
+        "content-length": "110",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64277
+    }
+    [35mres[39m: {
+      "statusCode": 400,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "68",
+        "etag": "W/\"44-U8OmPixZVJ4faJV6+W7EV3BZKBM\""
+      }
+    }
+    [35mresponseTime[39m: 244
+[2026-02-26 13:44:31.779 +0700] [32mINFO[39m: [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 7,
+      "method": "POST",
+      "url": "/api/users",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64278",
+        "accept-encoding": "gzip, deflate",
+        "cookie": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ODkxZmQ5NS0yMmJjLTRkNjQtYTdiMi04Y2E0OGU4YjI5YTQiLCJlbWFpbCI6InRlc3RzdGFmZkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVEFGRiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2NSwiZXhwIjoxNzcyMDg5MTY1fQ.JVK4sJfmZszCF5FRBXA6ac8tJh885oM4twwWKN2T2oQ; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:26 GMT; HttpOnly; SameSite=Strict",
+        "content-type": "application/json",
+        "content-length": "83",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64279
+    }
+    [35mres[39m: {
+      "statusCode": 403,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "52",
+        "etag": "W/\"34-IoN9gzg16Fto/FJ9xqcMuKldQJg\""
+      }
+    }
+    [35mresponseTime[39m: 4
+[2026-02-26 13:44:33.219 +0700] [32mINFO[39m: [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 8,
+      "method": "GET",
+      "url": "/api/users/profile",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64280",
+        "accept-encoding": "gzip, deflate",
+        "cookie": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ODkxZmQ5NS0yMmJjLTRkNjQtYTdiMi04Y2E0OGU4YjI5YTQiLCJlbWFpbCI6InRlc3RzdGFmZkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVEFGRiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2NSwiZXhwIjoxNzcyMDg5MTY1fQ.JVK4sJfmZszCF5FRBXA6ac8tJh885oM4twwWKN2T2oQ; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:26 GMT; HttpOnly; SameSite=Strict",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64281
+    }
+    [35mres[39m: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "287",
+        "etag": "W/\"11f-pYktxx/hPzjHdQ6fMsNUuvoon/k\""
+      }
+    }
+    [35mresponseTime[39m: 1437
+[2026-02-26 13:44:35.440 +0700] [32mINFO[39m: [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 9,
+      "method": "PUT",
+      "url": "/api/users/profile",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64285",
+        "accept-encoding": "gzip, deflate",
+        "cookie": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ODkxZmQ5NS0yMmJjLTRkNjQtYTdiMi04Y2E0OGU4YjI5YTQiLCJlbWFpbCI6InRlc3RzdGFmZkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVEFGRiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2NSwiZXhwIjoxNzcyMDg5MTY1fQ.JVK4sJfmZszCF5FRBXA6ac8tJh885oM4twwWKN2T2oQ; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:26 GMT; HttpOnly; SameSite=Strict",
+        "content-type": "application/json",
+        "content-length": "57",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64286
+    }
+    [35mres[39m: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "295",
+        "etag": "W/\"127-/ePph+NrAa5N0PpIjLngXGYvsDQ\""
+      }
+    }
+    [35mresponseTime[39m: 2213
+[2026-02-26 13:44:36.590 +0700] [32mINFO[39m: [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 10,
+      "method": "PUT",
+      "url": "/api/users/undefined",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64288",
+        "accept-encoding": "gzip, deflate",
+        "cookie": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MGRiMjlmYi03YjM1LTRhMmUtOGNhNy01ZmRkZDA4YmM0MmQiLCJlbWFpbCI6InRlc3RhZG1pbkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2MywiZXhwIjoxNzcyMDg5MTYzfQ.INWTGl8QEvO9oD2duvtDJ_D-bC3E5tYGYEZMrrxFVLU; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:25 GMT; HttpOnly; SameSite=Strict",
+        "content-type": "application/json",
+        "content-length": "42",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64289
+    }
+    [35mres[39m: {
+      "statusCode": 400,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "48",
+        "etag": "W/\"30-T6vWvSevxMk3axeiimEPUOtHWk4\""
+      }
+    }
+    [35mresponseTime[39m: 1144
+[2026-02-26 13:44:36.603 +0700] [32mINFO[39m: [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 11,
+      "method": "PUT",
+      "url": "/api/users/undefined",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64291",
+        "accept-encoding": "gzip, deflate",
+        "cookie": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ODkxZmQ5NS0yMmJjLTRkNjQtYTdiMi04Y2E0OGU4YjI5YTQiLCJlbWFpbCI6InRlc3RzdGFmZkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVEFGRiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2NSwiZXhwIjoxNzcyMDg5MTY1fQ.JVK4sJfmZszCF5FRBXA6ac8tJh885oM4twwWKN2T2oQ; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:26 GMT; HttpOnly; SameSite=Strict",
+        "content-type": "application/json",
+        "content-length": "17",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64292
+    }
+    [35mres[39m: {
+      "statusCode": 403,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "52",
+        "etag": "W/\"34-IoN9gzg16Fto/FJ9xqcMuKldQJg\""
+      }
+    }
+    [35mresponseTime[39m: 2
+[2026-02-26 13:44:36.608 +0700] [32mINFO[39m: [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 12,
+      "method": "DELETE",
+      "url": "/api/users/undefined",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64293",
+        "accept-encoding": "gzip, deflate",
+        "cookie": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ODkxZmQ5NS0yMmJjLTRkNjQtYTdiMi04Y2E0OGU4YjI5YTQiLCJlbWFpbCI6InRlc3RzdGFmZkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVEFGRiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2NSwiZXhwIjoxNzcyMDg5MTY1fQ.JVK4sJfmZszCF5FRBXA6ac8tJh885oM4twwWKN2T2oQ; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:26 GMT; HttpOnly; SameSite=Strict",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64294
+    }
+    [35mres[39m: {
+      "statusCode": 403,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "52",
+        "etag": "W/\"34-IoN9gzg16Fto/FJ9xqcMuKldQJg\""
+      }
+    }
+    [35mresponseTime[39m: 2
+[2026-02-26 13:44:37.787 +0700] [32mINFO[39m: [36mrequest completed[39m
+    [35mreq[39m: {
+      "id": 13,
+      "method": "DELETE",
+      "url": "/api/users/undefined",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64295",
+        "accept-encoding": "gzip, deflate",
+        "cookie": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MGRiMjlmYi03YjM1LTRhMmUtOGNhNy01ZmRkZDA4YmM0MmQiLCJlbWFpbCI6InRlc3RhZG1pbkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2MywiZXhwIjoxNzcyMDg5MTYzfQ.INWTGl8QEvO9oD2duvtDJ_D-bC3E5tYGYEZMrrxFVLU; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:25 GMT; HttpOnly; SameSite=Strict",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64296
+    }
+    [35mres[39m: {
+      "statusCode": 400,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "48",
+        "etag": "W/\"30-T6vWvSevxMk3axeiimEPUOtHWk4\""
+      }
+    }
+    [35mresponseTime[39m: 1177
+[2026-02-26 13:44:37.807 +0700] [31mERROR[39m: [36mUnexpected field[39m
+    err: {
+      "type": "MulterError",
+      "message": "Unexpected field",
+      "stack":
+          MulterError: Unexpected field
+              at wrappedFileFilter (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/multer/index.js:40:19)
+              at Multipart.<anonymous> (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/multer/lib/make-middleware.js:132:7)
+              at Multipart.emit (node:events:518:28)
+              at HeaderParser.cb (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/busboy/lib/types/multipart.js:358:14)
+              at HeaderParser.push (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/busboy/lib/types/multipart.js:162:20)
+              at SBMH.ssCb [as _cb] (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/busboy/lib/types/multipart.js:394:37)
+              at feed (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/streamsearch/lib/sbmh.js:248:10)
+              at SBMH.push (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/streamsearch/lib/sbmh.js:104:16)
+              at Multipart._write (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/busboy/lib/types/multipart.js:567:19)
+              at writeOrBuffer (node:internal/streams/writable:564:12)
+      "name": "MulterError",
+      "code": "LIMIT_UNEXPECTED_FILE",
+      "field": "avatar",
+      "storageErrors": []
+    }
+[2026-02-26 13:44:37.809 +0700] [32mINFO[39m: [36mrequest errored[39m
+    [35mreq[39m: {
+      "id": 14,
+      "method": "POST",
+      "url": "/api/users/avatar",
+      "query": {},
+      "params": {},
+      "headers": {
+        "host": "127.0.0.1:64298",
+        "accept-encoding": "gzip, deflate",
+        "cookie": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ODkxZmQ5NS0yMmJjLTRkNjQtYTdiMi04Y2E0OGU4YjI5YTQiLCJlbWFpbCI6InRlc3RzdGFmZkBleGFtcGxlLmNvbSIsInJvbGUiOiJTVEFGRiIsIndhcmVob3VzZUlkcyI6W10sImlhdCI6MTc3MjA4ODI2NSwiZXhwIjoxNzcyMDg5MTY1fQ.JVK4sJfmZszCF5FRBXA6ac8tJh885oM4twwWKN2T2oQ; Max-Age=900; Path=/; Expires=Thu, 26 Feb 2026 06:59:26 GMT; HttpOnly; SameSite=Strict",
+        "content-type": "multipart/form-data; boundary=--------------------------f4cbce25ab4a263ad83a9ba9",
+        "content-length": "234",
+        "connection": "close"
+      },
+      "remoteAddress": "::ffff:127.0.0.1",
+      "remotePort": 64299
+    }
+    [35mres[39m: {
+      "statusCode": 500,
+      "headers": {
+        "x-powered-by": "Express",
+        "access-control-allow-origin": "http://localhost:3000",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "1265",
+        "etag": "W/\"4f1-emS5RNjKtacAkCH+4uqSYqdLrDA\""
+      }
+    }
+    [35mresponseTime[39m: 9
+    err: {
+      "type": "Error",
+      "message": "failed with status code 500",
+      "stack":
+          Error: failed with status code 500
+              at onResFinished (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/pino-http/logger.js:115:39)
+              at ServerResponse.onResponseComplete (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/pino-http/logger.js:178:14)
+              at ServerResponse.emit (node:events:530:35)
+              at onFinish (node:_http_outgoing:1005:10)
+              at callback (node:internal/streams/writable:756:21)
+              at afterWrite (node:internal/streams/writable:701:5)
+              at afterWriteTick (node:internal/streams/writable:687:10)
+              at processTicksAndRejections (node:internal/process/task_queues:81:21)
+    }
+[90mstdout[2m | tests/user.api.test.ts[2m > [22m[2mUser API E2E[2m > [22m[2mPOST /api/users/avatar[2m > [22m[2mshould upload an avatar for the user
+[22m[39m{
+  error: [32m'Unexpected field'[39m,
+  stack: [32m'MulterError: Unexpected field\n'[39m +
+    [32m'    at wrappedFileFilter (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/multer/index.js:40:19)\n'[39m +
+    [32m'    at Multipart.<anonymous> (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/multer/lib/make-middleware.js:132:7)\n'[39m +
+    [32m'    at Multipart.emit (node:events:518:28)\n'[39m +
+    [32m'    at HeaderParser.cb (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/busboy/lib/types/multipart.js:358:14)\n'[39m +
+    [32m'    at HeaderParser.push (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/busboy/lib/types/multipart.js:162:20)\n'[39m +
+    [32m'    at SBMH.ssCb [as _cb] (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/busboy/lib/types/multipart.js:394:37)\n'[39m +
+    [32m'    at feed (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/streamsearch/lib/sbmh.js:248:10)\n'[39m +
+    [32m'    at SBMH.push (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/streamsearch/lib/sbmh.js:104:16)\n'[39m +
+    [32m'    at Multipart._write (/Users/ahmadfanani/Documents/warehouse-system/warehouse-backend/node_modules/busboy/lib/types/multipart.js:567:19)\n'[39m +
+    [32m'    at writeOrBuffer (node:internal/streams/writable:564:12)'[39m
+}
+
+ [31m❯[39m tests/user.api.test.ts [2m([22m[2m12 tests[22m[2m | [22m[31m6 failed[39m[2m)[22m[33m 20377[2mms[22m[39m
+       [33m[2m✓[22m[39m should allow SUPER_ADMIN to list users (Happy Path) [33m 2383[2mms[22m[39m
+       [32m✓[39m should return 403 Forbidden for STAFF (Unhappy Path)[32m 5[2mms[22m[39m
+[31m       [31m×[31m should allow SUPER_ADMIN to create new user (Happy Path)[39m[33m 2332[2mms[22m[39m
+       [32m✓[39m should return 400 when creating user with duplicate email (Unhappy Path)[32m 248[2mms[22m[39m
+       [32m✓[39m should return 403 when STAFF tries to create user (Unhappy Path)[32m 9[2mms[22m[39m
+[31m       [31m×[31m should allow STAFF to read their own profile[39m[33m 1442[2mms[22m[39m
+[31m       [31m×[31m should allow STAFF to update their own profile name and phone[39m[33m 2221[2mms[22m[39m
+[31m       [31m×[31m should allow SUPER_ADMIN to edit other users data[39m[33m 1155[2mms[22m[39m
+       [32m✓[39m should deny STAFF to edit another user[32m 6[2mms[22m[39m
+       [32m✓[39m should deny STAFF to soft-delete another user[32m 4[2mms[22m[39m
+[31m       [31m×[31m should allow SUPER_ADMIN to soft-delete a user[39m[33m 1182[2mms[22m[39m
+[31m       [31m×[31m should upload an avatar for the user[39m[32m 23[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 6 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/user.api.test.ts[2m > [22mUser API E2E[2m > [22mPOST /api/users[2m > [22mshould allow SUPER_ADMIN to create new user (Happy Path)
+[31m[1mAssertionError[22m: expected undefined to be defined[39m
+[36m [2m❯[22m tests/user.api.test.ts:[2m88:29[22m[39m
+    [90m 86| [39m      // Based on typical REST conventions, creation yields 201 or 200…
+    [90m 87| [39m      [34mexpect[39m(res[33m.[39mstatus)[33m.[39m[34mtoBe[39m([34m201[39m)[33m;[39m
+    [90m 88| [39m      [34mexpect[39m(res[33m.[39mbody[33m.[39mdata)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                            [31m^[39m
+    [90m 89| [39m      [34mexpect[39m(res[33m.[39mbody[33m.[39mdata[33m.[39memail)[33m.[39m[34mtoBe[39m([32m'newuser123@example.com'[39m)[33m;[39m
+    [90m 90| [39m      
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/user.api.test.ts[2m > [22mUser API E2E[2m > [22mGET /api/users/profile & PUT /api/users/profile[2m > [22mshould allow STAFF to read their own profile
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'email')[39m
+[36m [2m❯[22m tests/user.api.test.ts:[2m123:28[22m[39m
+    [90m121| [39m      const res = await request(app).get('/api/users/profile').set('Co…
+    [90m122| [39m      [34mexpect[39m(res[33m.[39mstatus)[33m.[39m[34mtoBe[39m([34m200[39m)[33m;[39m
+    [90m123| [39m      [34mexpect[39m(res[33m.[39mbody[33m.[39mdata[33m.[39memail)[33m.[39m[34mtoBe[39m(staffUser[33m.[39memail)[33m;[39m
+    [90m   | [39m                           [31m^[39m
+    [90m124| [39m    })[33m;[39m
+    [90m125| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/user.api.test.ts[2m > [22mUser API E2E[2m > [22mGET /api/users/profile & PUT /api/users/profile[2m > [22mshould allow STAFF to update their own profile name and phone
+[31m[1mAssertionError[22m: expected undefined to be defined[39m
+[36m [2m❯[22m tests/user.api.test.ts:[2m136:32[22m[39m
+    [90m134| [39m
+    [90m135| [39m      [34mexpect[39m(res[33m.[39mstatus)[33m.[39m[34mtoBe[39m([34m200[39m)[33m;[39m
+    [90m136| [39m      [34mexpect[39m(res[33m.[39mbody[33m.[39mmessage)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                               [31m^[39m
+    [90m137| [39m
+    [90m138| [39m      const getRes = await request(app).get('/api/users/profile').set(…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/user.api.test.ts[2m > [22mUser API E2E[2m > [22mPUT /api/users/:id[2m > [22mshould allow SUPER_ADMIN to edit other users data
+[31m[1mAssertionError[22m: expected 400 to be 200 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 200[39m
+[31m+ 400[39m
+
+[36m [2m❯[22m tests/user.api.test.ts:[2m153:26[22m[39m
+    [90m151| [39m        })[33m;[39m
+    [90m152| [39m
+    [90m153| [39m      [34mexpect[39m(res[33m.[39mstatus)[33m.[39m[34mtoBe[39m([34m200[39m)[33m;[39m
+    [90m   | [39m                         [31m^[39m
+    [90m154| [39m      
+    [90m155| [39m      const userDb = await prisma.user.findUnique({ where: { id: newUs…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/user.api.test.ts[2m > [22mUser API E2E[2m > [22mDELETE /api/users/:id[2m > [22mshould allow SUPER_ADMIN to soft-delete a user
+[31m[1mAssertionError[22m: expected 400 to be 200 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 200[39m
+[31m+ 400[39m
+
+[36m [2m❯[22m tests/user.api.test.ts:[2m184:26[22m[39m
+    [90m182| [39m        [33m.[39m[35mset[39m([32m'Cookie'[39m[33m,[39m adminCookie)[33m;[39m
+    [90m183| [39m
+    [90m184| [39m      [34mexpect[39m(res[33m.[39mstatus)[33m.[39m[34mtoBe[39m([34m200[39m)[33m;[39m
+    [90m   | [39m                         [31m^[39m
+    [90m185| [39m      
+    [90m186| [39m      const userDb = await prisma.user.findUnique({ where: { id: newUs…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/user.api.test.ts[2m > [22mUser API E2E[2m > [22mPOST /api/users/avatar[2m > [22mshould upload an avatar for the user
+[31m[1mAssertionError[22m: expected 500 to be 200 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 200[39m
+[31m+ 500[39m
+
+[36m [2m❯[22m tests/user.api.test.ts:[2m213:26[22m[39m
+    [90m211| [39m
+    [90m212| [39m      console[33m.[39m[34mdir[39m(res[33m.[39mbody[33m,[39m { depth[33m:[39m [35mnull[39m })[33m;[39m
+    [90m213| [39m      [34mexpect[39m(res[33m.[39mstatus)[33m.[39m[34mtoBe[39m([34m200[39m)[33m;[39m
+    [90m   | [39m                         [31m^[39m
+    [90m214| [39m      expect(res.body.data?.avatarUrl || res.body.avatarUrl).toBeDefin…
+    [90m215| [39m    })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m6 failed[39m[22m[2m | [22m[1m[32m6 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m 13:44:16
+[2m   Duration [22m 21.16s[2m (transform 271ms, setup 43ms, import 647ms, tests 20.38s, environment 0ms)[22m
+

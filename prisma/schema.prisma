@@ -27,10 +27,12 @@ model User {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  warehouses    UserWarehouse[]
-  refreshTokens RefreshToken[]
-  auditLogs     AuditLog[]
-  notifications Notification[]
+  warehouses           UserWarehouse[]
+  refreshTokens        RefreshToken[]
+  auditLogs            AuditLog[]
+  notifications        Notification[]
+  createdTransactions  Transaction[]   @relation("TransactionCreator")
+  approvedTransactions Transaction[]   @relation("TransactionApprover")
 }
 
 model Warehouse {
@@ -42,7 +44,10 @@ model Warehouse {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  users UserWarehouse[]
+  users             UserWarehouse[]
+  inventories       Inventory[]
+  transactions      Transaction[]   @relation("TransactionWarehouse")
+  incomingTransfers Transaction[]   @relation("TargetWarehouse")
 }
 
 model UserWarehouse {
@@ -72,6 +77,8 @@ model Category {
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  products Product[]
 }
 
 model Unit {
@@ -80,6 +87,8 @@ model Unit {
   abbreviation String   @unique // "kg"
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  products Product[]
 }
 
 model Notification {
@@ -104,4 +113,83 @@ model AuditLog {
   createdAt DateTime @default(now())
 
   user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model Product {
+  id            String   @id @default(uuid())
+  sku           String   @unique
+  name          String
+  categoryId    String
+  unitId        String
+  purchasePrice Decimal? @db.Decimal(15, 2)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  category         Category          @relation(fields: [categoryId], references: [id])
+  unit             Unit              @relation(fields: [unitId], references: [id])
+  inventories      Inventory[]
+  transactionItems TransactionItem[]
+}
+
+model Inventory {
+  id          String   @id @default(uuid())
+  productId   String
+  warehouseId String
+  stock       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  warehouse Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, warehouseId])
+}
+
+enum TransactionType {
+  STOCK_IN
+  STOCK_OUT
+  TRANSFER
+}
+
+enum TransactionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+model Transaction {
+  id              String            @id @default(uuid())
+  referenceNumber String            @unique
+  type            TransactionType
+  status          TransactionStatus @default(COMPLETED)
+
+  warehouseId       String? // Gudang utama untuk transaksi (e.g., target untuk STOCK_IN, source untuk STOCK_OUT/TRANSFER)
+  targetWarehouseId String? // Hanya untuk TRANSFER
+  supplier          String? // Untuk STOCK_IN
+  destination       String? // Untuk STOCK_OUT (Toko A)
+  notes             String?
+
+  createdBy  String // User ID
+  approvedBy String? // User ID
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  creator  User              @relation("TransactionCreator", fields: [createdBy], references: [id])
+  approver User?             @relation("TransactionApprover", fields: [approvedBy], references: [id])
+  items    TransactionItem[]
+
+  warehouse       Warehouse? @relation("TransactionWarehouse", fields: [warehouseId], references: [id])
+  targetWarehouse Warehouse? @relation("TargetWarehouse", fields: [targetWarehouseId], references: [id])
+}
+
+model TransactionItem {
+  id            String   @id @default(uuid())
+  transactionId String
+  productId     String
+  quantity      Int
+  createdAt     DateTime @default(now())
+
+  transaction Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  product     Product     @relation(fields: [productId], references: [id])
 }

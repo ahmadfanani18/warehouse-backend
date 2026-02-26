@@ -1,6 +1,14 @@
 import { Router } from 'express';
+import { container } from 'tsyringe';
+import { UserController } from '../controllers/UserController';
+import { authMiddleware } from '../middlewares/authMiddleware';
+import { roleMiddleware } from '../middlewares/roleMiddleware';
+import multer from 'multer';
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 const router = Router();
+const userController = container.resolve(UserController);
 
 /**
  * @swagger
@@ -40,9 +48,7 @@ const router = Router();
  *       200:
  *         description: Paginated user list
  */
-router.get('/', (req, res) => {
-  res.status(200).json({ message: 'List Users Route (wip)' });
-});
+router.get('/', authMiddleware, roleMiddleware(['SUPER_ADMIN']), userController.getUsers);
 
 /**
  * @swagger
@@ -81,9 +87,69 @@ router.get('/', (req, res) => {
  *       201:
  *         description: User berhasil dibuat
  */
-router.post('/', (req, res) => {
-  res.status(201).json({ message: 'Create User Route (wip)' });
-});
+router.post('/', authMiddleware, roleMiddleware(['SUPER_ADMIN']), userController.createUser);
+
+/**
+ * @swagger
+ * /api/users/profile:
+ *   get:
+ *     summary: Get user profile details
+ *     tags: [User]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: User profile
+ */
+router.get('/profile', authMiddleware, userController.getProfile);
+
+/**
+ * @swagger
+ * /api/users/profile:
+ *   put:
+ *     summary: Update profile info
+ *     tags: [User]
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               phone:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Profile updated
+ */
+router.put('/profile', authMiddleware, userController.updateProfile);
+
+/**
+ * @swagger
+ * /api/users/avatar:
+ *   post:
+ *     summary: Upload/Update avatar
+ *     tags: [User]
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Avatar updated
+ */
+router.post('/avatar', authMiddleware, upload.single('file'), userController.uploadAvatar);
 
 /**
  * @swagger
@@ -120,9 +186,7 @@ router.post('/', (req, res) => {
  *       200:
  *         description: User berhasil diupdate
  */
-router.put('/:id', (req, res) => {
-  res.status(200).json({ message: 'Update User Route (wip)' });
-});
+router.put('/:id', authMiddleware, roleMiddleware(['SUPER_ADMIN']), userController.updateUser);
 
 /**
  * @swagger
@@ -142,76 +206,8 @@ router.put('/:id', (req, res) => {
  *       200:
  *         description: User berhasil dinonaktifkan
  */
-router.delete('/:id', (req, res) => {
-  res.status(200).json({ message: 'Delete User Route (wip)' });
-});
+router.delete('/:id', authMiddleware, roleMiddleware(['SUPER_ADMIN']), userController.deleteUser);
 
-/**
- * @swagger
- * /api/users/profile:
- *   get:
- *     summary: Get user profile details
- *     tags: [User]
- *     security:
- *       - cookieAuth: []
- *     responses:
- *       200:
- *         description: User profile
- */
-router.get('/profile', (req, res) => {
-  res.status(200).json({ message: 'My Profile Route (wip)' });
-});
 
-/**
- * @swagger
- * /api/users/profile:
- *   put:
- *     summary: Update profile info
- *     tags: [User]
- *     security:
- *       - cookieAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               phone:
- *                 type: string
- *     responses:
- *       200:
- *         description: Profile updated
- */
-router.put('/profile', (req, res) => {
-  res.status(200).json({ message: 'Update My Profile Route (wip)' });
-});
-
-/**
- * @swagger
- * /api/users/avatar:
- *   post:
- *     summary: Upload/Update avatar
- *     tags: [User]
- *     security:
- *       - cookieAuth: []
- *     requestBody:
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               file:
- *                 type: string
- *                 format: binary
- *     responses:
- *       200:
- *         description: Avatar updated
- */
-router.post('/avatar', (req, res) => {
-  res.status(200).json({ message: 'Upload Avatar Route (wip)' });
-});
 
 export default router;

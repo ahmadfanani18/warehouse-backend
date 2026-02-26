@@ -7,7 +7,7 @@ export class Result<T> {
     public readonly error?: AppError,
   ) {}
 
-  static ok<T>(value: T): Result<T> {
+  static ok<T>(value?: T): Result<T> {
     return new Result(true, value);
   }
 

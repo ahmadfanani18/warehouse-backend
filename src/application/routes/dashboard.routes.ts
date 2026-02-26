@@ -1,50 +1,46 @@
-import { Router } from 'express';
+import { Router } from "express";
+import { container } from "tsyringe";
+import { DashboardController } from "../controllers/DashboardController";
+import { authMiddleware } from "../middlewares/authMiddleware";
 
 const router = Router();
+const dashboardController = container.resolve(DashboardController);
+
+router.use(authMiddleware);
 
 /**
  * @swagger
  * tags:
  *   name: Dashboard
- *   description: Dashboard Analytics & Summary API
+ *   description: Dashboard metrics and activities
  */
 
 /**
  * @swagger
  * /api/dashboard/summary:
  *   get:
- *     summary: Ambil data ringkasan dashboard
+ *     summary: Get dashboard summary metrics
  *     tags: [Dashboard]
  *     security:
  *       - cookieAuth: []
- *     parameters:
- *       - in: query
- *         name: warehouseId
- *         schema:
- *           type: string
- *         description: Filter ringkasan berdasarkan Gudang tertentu (Opsional untuk Super Admin)
  *     responses:
  *       200:
- *         description: Berhasil mengambil data summary
+ *         description: Dashboard summary data
  */
-router.get('/summary', (req, res) => {
-  res.status(200).json({ message: 'Dashboard Summary Route (wip)' });
-});
+router.get("/summary", dashboardController.getSummary);
 
 /**
  * @swagger
  * /api/dashboard/activities:
  *   get:
- *     summary: Ambil data log aktivitas terbaru
+ *     summary: Get recent warehouse activities
  *     tags: [Dashboard]
  *     security:
  *       - cookieAuth: []
  *     responses:
  *       200:
- *         description: Berhasil mengambil log aktivitas
+ *         description: List of recent activities
  */
-router.get('/activities', (req, res) => {
-  res.status(200).json({ message: 'Dashboard Activities Route (wip)' });
-});
+router.get("/activities", dashboardController.getActivities);
 
 export default router;

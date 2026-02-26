@@ -3,14 +3,7 @@ import { container } from 'tsyringe';
 import { IJwtService } from '../../domain/services/IJwtService';
 import { JwtPayload } from '../../domain/services/IJwtService';
 
-// Extend Express Request
-declare global {
-  namespace Express {
-    interface Request {
-      user?: JwtPayload;
-    }
-  }
-}
+
 
 export function authMiddleware(req: Request, res: Response, next: NextFunction) {
   const token = req.cookies?.access_token;
@@ -26,4 +19,20 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
   } catch (error) {
     return res.status(401).json({ error: 'Token tidak valid atau expired' });
   }
+}
+
+export function authorizeRoles(...allowedRoles: string[]) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    if (!req.user) {
+       res.status(401).json({ error: 'Belum login' });
+       return;
+    }
+    
+    if (!allowedRoles.includes(req.user.role)) {
+      res.status(403).json({ error: 'Akses ditolak.' });
+      return;
+    }
+    
+    next();
+  };
 }

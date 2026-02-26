@@ -5,16 +5,19 @@ import { IRefreshTokenRepository } from '../../repositories/IRefreshTokenReposit
 import { Result } from '../../errors/Result';
 import { InvalidCredentialsError } from '../../errors/AppError';
 import { AuthTokens } from '../../types/SharedTypes';
+import { User } from '../../entities/User';
+import { injectable, inject } from 'tsyringe';
 
+@injectable()
 export class LoginUseCase {
   constructor(
-    private readonly userRepo: IUserRepository,
-    private readonly jwtService: IJwtService,
-    private readonly hashService: IHashService,
-    private readonly refreshTokenRepo: IRefreshTokenRepository,
+    @inject('IUserRepository') private readonly userRepo: IUserRepository,
+    @inject('IJwtService') private readonly jwtService: IJwtService,
+    @inject('IHashService') private readonly hashService: IHashService,
+    @inject('IRefreshTokenRepository') private readonly refreshTokenRepo: IRefreshTokenRepository,
   ) {}
 
-  async execute(email: string, password: string): Promise<Result<AuthTokens>> {
+  async execute(email: string, password: string): Promise<Result<{ user: User; tokens: AuthTokens }>> {
     const user = await this.userRepo.findByEmail(email);
     if (!user || !user.isActive) return Result.fail(new InvalidCredentialsError());
 
@@ -37,6 +40,8 @@ export class LoginUseCase {
     // Update lastLoginAt
     await this.userRepo.update(user.id, { lastLoginAt: new Date() });
 
-    return Result.ok(tokens);
+    // Exclude password before returning user
+    const { password: _, ...userWithoutPassword } = user;
+    return Result.ok({ user: userWithoutPassword as User, tokens });
   }
 }

@@ -12,4 +12,6 @@ export interface IJwtService {
   generateTokenPair(user: User): Promise<AuthTokens>;
   verifyAccessToken(token: string): JwtPayload;
   decodeToken(token: string): JwtPayload | null;
+  generateResetToken(userId: string): string;
+  verifyResetToken(token: string): { sub: string };
 }
